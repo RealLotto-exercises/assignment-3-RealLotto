@@ -1,5 +1,6 @@
 #!/bin/sh
-cd $(dirname $0)
+
+cd "$(dirname "$0")"
 echo "Running test script"
 ./finder-test.sh
 rc=$?

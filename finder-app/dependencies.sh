@@ -1,8 +1,20 @@
 #!/bin/bash
-# Dependency installation script for kernel build.
-# Author: Siddhant Jajoo.
 
+set -euo pipefail
 
-sudo apt-get install -y libssl-dev
-sudo apt-get install -y u-boot-tools
-sudo apt-get install -y qemu
+sudo apt-get update
+sudo apt-get install -y \
+    bc \
+    bison \
+    build-essential \
+    cpio \
+    curl \
+    flex \
+    git \
+    gzip \
+    libelf-dev \
+    libssl-dev \
+    qemu-system-arm \
+    tar \
+    u-boot-tools \
+    xz-utils

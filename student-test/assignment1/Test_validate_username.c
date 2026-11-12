@@ -14,9 +14,16 @@
 */
 void test_validate_my_username()
 {
-    /**
-     * TODO: Replace the line below with your code here as described above to verify your /conf/username.txt 
-     * config file and my_username() functions are setup properly
-     */
-    TEST_ASSERT_TRUE_MESSAGE(false,"AESD students, please fix me!");
+    const char *username = my_username();
+    char *configured_username = malloc_username_from_conf_file();
+
+    TEST_ASSERT_NOT_NULL_MESSAGE(username, "my_username() returned NULL");
+    TEST_ASSERT_NOT_NULL_MESSAGE(configured_username,
+            "Could not read conf/username.txt");
+    if (username != NULL && configured_username != NULL) {
+        TEST_ASSERT_EQUAL_STRING_MESSAGE(configured_username, username,
+                "my_username() does not match conf/username.txt");
+    }
+
+    free(configured_username);
 }
