@@ -24,7 +24,7 @@ if ! command -v "${CROSS_COMPILE}gcc" >/dev/null 2>&1 &&
     export PATH
 fi
 
-for command_name in git make cpio gzip curl tar "${CROSS_COMPILE}gcc" \
+for command_name in git make cpio gzip wget tar "${CROSS_COMPILE}gcc" \
     "${CROSS_COMPILE}readelf"; do
     if ! command -v "$command_name" >/dev/null 2>&1; then
         printf 'Error: required command not found: %s\n' "$command_name" >&2
@@ -67,8 +67,8 @@ elif [ ! -f "$KERNEL_DIR/Makefile" ]; then
             exit 1
         fi
     fi
-    curl --fail --location --retry 5 --retry-all-errors --continue-at - \
-        --connect-timeout 30 "$KERNEL_TARBALL" --output "$KERNEL_ARCHIVE"
+    wget --tries=5 --timeout=30 --output-document="$KERNEL_ARCHIVE" \
+        "$KERNEL_TARBALL"
     if ! xz --test "$KERNEL_ARCHIVE"; then
         rm -f -- "$KERNEL_ARCHIVE"
         printf 'Error: downloaded kernel archive failed XZ integrity validation.\n' >&2
